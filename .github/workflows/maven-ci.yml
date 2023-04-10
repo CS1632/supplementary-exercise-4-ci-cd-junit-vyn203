@@ -79,6 +79,23 @@ jobs:
         key: cached-build-${{github.sha}}
         path: .
 
+  sonarqube_test:
+ 
+    needs: [maven_test]
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+
+    - name: Restore cached build
+      uses: actions/cache@v3
+      with:
+        key: cached-build-${{github.sha}}
+        path: .
+
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@master
       env:
